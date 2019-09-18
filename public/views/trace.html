@@ -1,0 +1,110 @@
+<div data-ng-include src="'views/includes/connection.html'"></div>
+<section data-ng-controller="traceController" data-ng-init="findOne()">
+  <h2>溯源信息</h2>
+   <div ng-repeat=" trace in traceInfo" align="left">
+    <div class="well well-sm ellipsis">
+      <a class="btn-expand" title="Show/Hide items details" data-ng-click="itemsExpanded = !itemsExpanded">
+        <span class="glyphicon glyphicon-plus-sign" data-ng-class="{'glyphicon-minus-sign': itemsExpanded}"></span>
+      </a>
+      <strong>产品哈希</strong>
+      <span class="tracehash text-muted">{{trace.prevHash}}</span>
+      <!--span class="btn-copy" clip-copy="block.hash"></span-->
+    </div>
+
+    <!-- <<< Simple view -->
+    <div data-ng-if="!itemsExpanded"> 
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table" style="table-layout: fixed">
+          <tbody>
+          <tr>
+            <td>业务类型</td>
+            <td class="text-right text-muted">{{trace.type}}</td>
+          </tr>
+          <tr>
+            <td>产品名称</td>
+            <td class="text-right text-muted">{{trace.name}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table" style="table-layout: fixed">
+          <tbody>
+          <tr>
+            <td>发生时间</td>
+            <td class="text-right text-muted">{{trace.datetime}}</td>
+          </tr>
+          <tr>
+            <td>产品描述</td>
+	    <td class="text-right text-muted"><a href="{{trace.desc}}">{{trace.desc}}</a></td>
+	  </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
+
+    <!-- <<< Details view -->
+    <div data-ng-if="itemsExpanded">
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table table-hover table-striped">
+        <!--table class="table" style="table-layout: fixed"-->
+          <tbody>
+          <tr>
+            <td><业务类型</td>
+            <td class="text-right text-muted">{{trace.type}}</td>
+          </tr>
+          <tr>
+            <td>产品名称</td>
+            <td class="text-right text-muted">{{trace.name}}</td>
+          </tr>
+          <tr>
+            <td>产品代码</td>
+            <td class="text-right text-muted">{{trace.code}}</td>
+          </tr>
+          <tr>
+            <td>产品数量</td>
+            <td class="text-right text-muted">{{trace.quantity}}</td>
+          </tr>
+          <tr>
+            <td>生产厂商</td>
+            <td class="text-right text-muted">{{trace.manufacturer}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-hover table-striped">
+        <!--table class="table" style="table-layout: fixed"-->
+          <tbody>
+          <tr>
+            <td>发生时间</td>
+            <td class="text-right text-muted">{{trace.datetime}}</td>
+          </tr>
+          <tr>
+            <td>产品描述</td>
+            <td class="text-right text-muted"><a href="{{trace.desc}}">{{trace.desc}}</a></td>
+          </tr>
+          <tr>
+            <td>产品批次</td>
+            <td class="text-right text-muted">{{trace.datetime}}</td>
+          </tr>
+          <tr>
+            <td>产品编码</td>
+            <td class="text-right text-muted">
+ 	      <select ng-if='trace.identification.length>0' ng-model="identification">
+     	        <option ng-repeat="a in trace.identification" value="{{a}}">{{a}}</option>
+              </select>
+	    </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
+
+  </div>
+</section>
+
